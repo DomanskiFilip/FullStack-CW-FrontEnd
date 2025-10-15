@@ -4,6 +4,7 @@
             <h2>{{ classInfo.subject }}</h2>
         </header>
         <p class="location">{{ classInfo.location }}</p>
+        <p class="availability">{{ classInfo.availablePlaces }} places available</p>
         <p class="price">£{{ classInfo.price }}</p>
     </article>
 </template>
@@ -39,6 +40,11 @@ header h2 {
 .location {
     font-size: 0.95rem;
     color: var(--accent);
+}
+
+.availability {
+    font-size: 0.9rem;
+    color: var(--muted);
 }
 
 .price {

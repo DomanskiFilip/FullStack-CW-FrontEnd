@@ -22,8 +22,8 @@
                             <li v-for="location in locations" :key="location" @click="toggleLocation(location)" :class="{ active: selectedLocations.includes(location) }">{{ location }}</li>
                         </ul>
                     </li>
-                    <li>price</li>
-                    <li>availability</li>
+                    <li @click="setPriceSort">price</li>
+                    <li @click="setAvailabilitySort" :class="{ active: selectedAvailability }">availability</li>
                 </ul>
             </div>
             <button id="sort" @click="toggleSort" title="sort">
@@ -42,8 +42,12 @@ const props = defineProps({
     toggleSubject: Function,
     toggleLocation: Function,
     toggleSort: Function,
+    toggleAvailability: Function,
+    setPriceSort: Function,
+    setAvailabilitySort: Function,
     selectedSubjects: Array,
     selectedLocations: Array,
+    selectedAvailability: Boolean,
     sortOrder: String
 });
 
