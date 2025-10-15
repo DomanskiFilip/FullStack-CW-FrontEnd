@@ -12,21 +12,23 @@
                         subject
                         <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#e3e3e3"><path d="m288-96-68-68 316-316-316-316 68-68 384 384L288-96Z" stroke="#e3e3e3" stroke-width="80"/></svg>
                         <ul class="sublist" v-if="showSubjects">
-                            <li v-for="subject in subjects" :key="subject">{{ subject }}</li>
+                            <li v-for="subject in subjects" :key="subject" @click="toggleSubject(subject)" :class="{ active: selectedSubjects.includes(subject) }">{{ subject }}</li>
                         </ul>
                     </li>
                     <li @mouseenter="showLocations = true" @mouseleave="showLocations = false">
                         location
                         <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#e3e3e3"><path d="m288-96-68-68 316-316-316-316 68-68 384 384L288-96Z" stroke="#e3e3e3" stroke-width="80"/></svg>
                         <ul class="sublist" v-if="showLocations">
-                            <li v-for="location in locations" :key="location">{{ location }}</li>
+                            <li v-for="location in locations" :key="location" @click="toggleLocation(location)" :class="{ active: selectedLocations.includes(location) }">{{ location }}</li>
                         </ul>
                     </li>
                     <li>price</li>
                     <li>availability</li>
                 </ul>
             </div>
-            <button id="sort"><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#e3e3e3"><path d="M120-240v-80h240v80H120Zm0-200v-80h480v80H120Zm0-200v-80h720v80H120Z"/></svg></button>
+            <button id="sort" @click="toggleSort">
+                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#e3e3e3"><path d="M120-240v-80h240v80H120Zm0-200v-80h480v80H120Zm0-200v-80h720v80H120Z"/></svg>
+            </button>
         </div>
         <button id="cart"><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#e3e3e3"><path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg></button>
     </section>
@@ -34,6 +36,15 @@
 
 <script setup>
 import { ref } from 'vue';
+
+const props = defineProps({
+    toggleSubject: Function,
+    toggleLocation: Function,
+    toggleSort: Function,
+    selectedSubjects: Array,
+    selectedLocations: Array,
+    sortOrder: String
+});
 
 const showTags = ref(false);
 const showSubjects = ref(false);
@@ -196,5 +207,10 @@ button:active {
 
 .sublist li:hover {
     background-color: var(--action-hover);
+}
+
+.sublist li.active {
+    background-color: var(--accent);
+    color: var(--secondary);
 }
 </style>
