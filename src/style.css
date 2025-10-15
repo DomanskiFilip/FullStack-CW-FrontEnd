@@ -1,0 +1,22 @@
+:root {
+    /* cool gray / blue-gray scheme */
+    --primary: #2f3435;
+    --secondary: #222629;
+    --action: #415058;
+    --action-hover: #5a6b77;
+    --action-active: #2f3940;
+    --accent: #63a4ff;
+    --text: #e7eef2;
+    --font: 'Arial', sans-serif;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body , #app {
+    width: 100vw;
+    height: 100vh;
+}
