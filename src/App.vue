@@ -20,9 +20,11 @@ import ClassBox from './components/ClassBox.vue';
 
 const year = new Date().getFullYear();
 
+// lists holding selected subjects/locations
 const selectedSubjects = ref([]);
 const selectedLocations = ref([]);
-const sortOrder = ref('asc');
+
+const sortOrder = ref('price-asc');
 
 const classes = ref([
     { id: 1, subject: 'Mathematics', location: 'London Hendon Campus', price: 120 },
@@ -58,40 +60,54 @@ const classes = ref([
 ]);
 
 const filteredClasses = computed(() => {
+    // Start with the full list of classes
     let filtered = classes.value;
+    // Filter by selected subjects if any are chosen
     if (selectedSubjects.value.length > 0) {
         filtered = filtered.filter(c => selectedSubjects.value.includes(c.subject));
     }
+    // Filter by selected locations if any are chosen
     if (selectedLocations.value.length > 0) {
         filtered = filtered.filter(c => selectedLocations.value.includes(c.location));
     }
-    if (sortOrder.value === 'asc') {
+    // Sort based on sortOrder
+    if (sortOrder.value === 'price-asc') {
         filtered = [...filtered].sort((a, b) => a.price - b.price);
-    } else if (sortOrder.value === 'desc') {
+    } else if (sortOrder.value === 'price-desc') {
         filtered = [...filtered].sort((a, b) => b.price - a.price);
+    } else if (sortOrder.value === 'subject-asc') {
+        filtered = [...filtered].sort((a, b) => a.subject.localeCompare(b.subject));
+    } else if (sortOrder.value === 'subject-desc') {
+        filtered = [...filtered].sort((a, b) => b.subject.localeCompare(a.subject));
     }
     return filtered;
 });
 
 const toggleSubject = (subject) => {
+    // If the subject is already selected, remove it from the list
     if (selectedSubjects.value.includes(subject)) {
         selectedSubjects.value = selectedSubjects.value.filter(s => s !== subject);
+    // Otherwise, add it to the selected subjects
     } else {
         selectedSubjects.value.push(subject);
     }
 };
 
 const toggleLocation = (location) => {
+    // If the location is already selected, remove it from the list
     if (selectedLocations.value.includes(location)) {
         selectedLocations.value = selectedLocations.value.filter(l => l !== location);
+    // Otherwise, add it to the selected locations
     } else {
         selectedLocations.value.push(location);
     }
 };
 
 const toggleSort = () => {
-    if (sortOrder.value === 'desc') sortOrder.value = 'asc';
-    else if (sortOrder.value === 'asc') sortOrder.value = 'desc';
+    if (sortOrder.value === 'price-asc') sortOrder.value = 'price-desc';
+    else if (sortOrder.value === 'price-desc') sortOrder.value = 'subject-asc';
+    else if (sortOrder.value === 'subject-asc') sortOrder.value = 'subject-desc';
+    else sortOrder.value = 'price-asc';
 };
 </script>
 
