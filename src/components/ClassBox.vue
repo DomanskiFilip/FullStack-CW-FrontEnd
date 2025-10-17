@@ -28,5 +28,6 @@ const props = defineProps({
     padding: 1rem;
     overflow-y: auto;
     box-sizing: border-box;
+    margin-bottom: 2rem;
 }
 </style>

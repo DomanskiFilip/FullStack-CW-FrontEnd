@@ -11,8 +11,10 @@
             :selectedLocations="selectedLocations" 
             :selectedAvailability="selectedAvailability"
             :sortOrder="sortOrder" 
+            :toggleCart="toggleCart" 
         />
-        <ClassBox :classes="filteredClasses" />
+        <ClassBox v-if="!showCart" :classes="filteredClasses" />
+        <ShoppingCart v-else />
         <footer>&copy; Filip Domanski <span id="year">{{ year }}</span></footer>
     </main>
 </template>
@@ -21,6 +23,7 @@
 import { ref, computed } from 'vue';
 import Nav from './components/Nav.vue';
 import ClassBox from './components/ClassBox.vue';
+import ShoppingCart from './components/ShoppingCart.vue';
 
 const year = new Date().getFullYear();
 
@@ -30,6 +33,12 @@ const selectedLocations = ref([]);
 const selectedAvailability = ref(false);
 
 const sortOrder = ref('price-asc');
+
+// Shopping Cart logic
+const showCart = ref(false);
+const toggleCart = () => {
+    showCart.value = !showCart.value;
+};
 
 const classes = ref([
     { id: 1, subject: 'Mathematics', location: 'London Hendon Campus', price: 120, availablePlaces: 5 },
