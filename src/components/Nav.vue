@@ -1,8 +1,8 @@
 <template>
     <section>
-        <h1>ClassShop</h1>
+        <a href="/"><h1>ClassShop</h1></a>
         <div class="center">
-            <input type="text" id="search" placeholder="Search..." />
+            <input type="text" id="search" placeholder="Search..." :value="searchTerm" @input="$emit('update:searchTerm', $event.target.value)" />
             <div class="tags-wrapper">
                 <button id="tags" @click="showTags = !showTags" title="tags">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m159-168-34-14q-31-13-41.5-45t3.5-63l72-156v278Zm160 88q-33 0-56.5-23.5T239-160v-240l106 294q3 7 6 13.5t8 12.5h-40Zm206-4q-32 12-62-3t-42-47L243-622q-12-32 2-62.5t46-41.5l302-110q32-12 62 3t42 47l178 488q12 32-2 62.5T827-194L525-84Zm-86-476q17 0 28.5-11.5T479-600q0-17-11.5-28.5T439-640q-17 0-28.5 11.5T399-600q0 17 11.5 28.5T439-560Zm58 400 302-110-178-490-302 110 178 490ZM319-650l302-110-302 110Z"/></svg>
@@ -49,8 +49,11 @@ const props = defineProps({
     selectedLocations: Array,
     selectedAvailability: Boolean,
     sortOrder: String,
-    toggleCart: Function
+    toggleCart: Function,
+    searchTerm: String
 });
+
+const emit = defineEmits(['update:searchTerm']);
 
 const showTags = ref(false);
 const showSubjects = ref(false);
@@ -105,7 +108,14 @@ section {
     padding-right: 4.5rem;
 }
 
-h1 {
+a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+a h1 {
     color: white;
     font-size: 2rem;
     font-weight: bold;

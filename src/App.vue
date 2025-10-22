@@ -1,6 +1,7 @@
 <template>
     <main>
         <Nav 
+            v-model:searchTerm="searchTerm"
             :toggleSubject="toggleSubject" 
             :toggleLocation="toggleLocation" 
             :toggleSort="toggleSort" 
@@ -39,6 +40,9 @@ const showCart = ref(false);
 const toggleCart = () => {
     showCart.value = !showCart.value;
 };
+
+const searchTerm = ref('');
+
 
 const classes = ref([
     { id: 1, subject: 'Mathematics', location: 'London Hendon Campus', price: 120, availablePlaces: 5 },
@@ -101,6 +105,14 @@ const filteredClasses = computed(() => {
         filtered = [...filtered].sort((a, b) => a.availablePlaces - b.availablePlaces);
     } else if (sortOrder.value === 'availability-desc') {
         filtered = [...filtered].sort((a, b) => b.availablePlaces - a.availablePlaces);
+    }
+    // Filter by search
+    if (searchTerm.value.trim()) {
+        const term = searchTerm.value.toLowerCase().trim();
+        filtered = filtered.filter(c =>
+            c.subject.toLowerCase().includes(term) ||
+            c.location.toLowerCase().includes(term)
+        );
     }
     return filtered;
 });
