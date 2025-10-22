@@ -4,6 +4,8 @@
             v-for="classItem in classes"
             :key="classItem.id"
             :class-info="classItem"
+            @add-to-cart="$emit('add-to-cart', $event)"
+            @remove-from-cart="$emit('remove-from-cart', $event)"
         />
     </section>
 </template>
@@ -17,6 +19,8 @@ const props = defineProps({
         required: true
     }
 });
+
+const emit = defineEmits(['add-to-cart', 'remove-from-cart']);
 </script>
 
 <style scoped>

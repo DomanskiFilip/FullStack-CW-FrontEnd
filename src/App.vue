@@ -14,8 +14,8 @@
             :sortOrder="sortOrder" 
             :toggleCart="toggleCart" 
         />
-        <ClassBox v-if="!showCart" :classes="filteredClasses" />
-        <ShoppingCart v-else />
+        <ClassBox v-if="!showCart" :classes="filteredClasses" @add-to-cart="addToCart" @remove-from-cart="removeFromCart" />
+        <ShoppingCart v-else :cart="cart" @add-to-cart="addToCart" @remove-from-cart="removeFromCart" />
         <footer>&copy; Filip Domanski <span id="year">{{ year }}</span></footer>
     </main>
 </template>
@@ -41,8 +41,18 @@ const toggleCart = () => {
     showCart.value = !showCart.value;
 };
 
-const searchTerm = ref('');
+// cart state
+const cart = ref([]);
+const addToCart = (classInfo) => {
+    if (!cart.value.some(item => item.id === classInfo.id)) {
+        cart.value.push(classInfo);
+    }
+};
+const removeFromCart = (classInfo) => {
+    cart.value = cart.value.filter(item => item.id !== classInfo.id);
+};
 
+const searchTerm = ref('');
 
 const classes = ref([
     { id: 1, subject: 'Mathematics', location: 'London Hendon Campus', price: 120, availablePlaces: 5 },
@@ -114,6 +124,8 @@ const filteredClasses = computed(() => {
             c.location.toLowerCase().includes(term)
         );
     }
+    // Exclude classes already in the cart
+    filtered = filtered.filter(c => !cart.value.some(item => item.id === c.id));
     return filtered;
 });
 
@@ -160,7 +172,6 @@ const setAvailabilitySort = () => {
     }
 };
 </script>
-
 
 <style scoped>
 main {
