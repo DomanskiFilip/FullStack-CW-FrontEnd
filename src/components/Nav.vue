@@ -10,7 +10,7 @@
                 <ul id="taglist" v-if="showTags">
                     <li @mouseenter="showSubjects = true" @mouseleave="showSubjects = false">
                         subject
-                        <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="http://www.w3.org/2000/svg" width="16px" fill="#e3e3e3"><path d="m288-96-68-68 316-316-316-316 68-68 384 384L288-96Z" stroke="#e3e3e3" stroke-width="80"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#e3e3e3"><path d="m288-96-68-68 316-316-316-316 68-68 384 384L288-96Z" stroke="#e3e3e3" stroke-width="80"/></svg>
                         <ul class="sublist" v-if="showSubjects">
                             <li v-for="subject in subjects" :key="subject" @click="toggleSubject(subject)" :class="{ active: selectedSubjects.includes(subject) }">{{ subject }}</li>
                         </ul>
