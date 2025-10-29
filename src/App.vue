@@ -52,12 +52,20 @@ const toggleCart = () => {
 
 // cart state
 const cart = ref([]);
-const addToCart = async (classInfo) => {
-    if (!cart.value.some(item => item.id === classInfo.id)) {
-        cart.value.push(classInfo);
+async function addToCart(classInfo) {
+    // Only add if space > 0 and not already in cart
+    if (classInfo.availablePlaces > 0 && !cart.value.some(item => item._id === classInfo._id)) {
+        cart.value.push({ ...classInfo, quantity: 1 });
+        // Decrement availablePlaces in backend
+        await fetch(`http://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/lesson/${classInfo._id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ availablePlaces: classInfo.availablePlaces - 1 })
+        });
+        // update local state for instant UI feedback
+        classInfo.availablePlaces -= 1;
     }
-    await saveCartToBackend();
-};
+}
 
 const removeFromCart = async (classInfo) => {
     cart.value = cart.value.filter(item => item.id !== classInfo.id);

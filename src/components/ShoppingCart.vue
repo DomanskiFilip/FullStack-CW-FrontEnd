@@ -11,6 +11,10 @@
                 <input v-model="checkoutInfo.email" type="email" required />
             </label>
             <label>
+                Phone:
+                <input v-model="checkoutInfo.phone" type="text" required />
+            </label>
+            <label>
                 Address:
                 <input v-model="checkoutInfo.address" required />
             </label>
@@ -77,6 +81,16 @@ const totalPrice = computed(() =>
 );
 
 async function submitCheckout() {
+    // Validate name (letters only)
+    if (!/^[A-Za-z\s]+$/.test(checkoutInfo.value.name)) {
+        alert('Name must contain letters only.');
+        return;
+    }
+    // Validate phone (numbers only)
+    if (!/^\d+$/.test(checkoutInfo.value.phone)) {
+        alert('Phone must contain numbers only.');
+        return;
+    }
     // Validate credit card number
     if (isNaN(Number(checkoutInfo.value.creditCardNumber))) {
         alert('Credit card number must be a number.');
