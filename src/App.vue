@@ -96,8 +96,8 @@ const fetchClasses = async () => {
     params.append('sort', sortOrder.value);
 
     try {
-        // const response = await fetch(`http://localhost:3000/search?${params}`);
-        const response = await fetch(`http://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/search?${params}`);
+        // const response = await fetch(`http://localhost:3000/lessons?${params}`);
+        const response = await fetch(`http://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/lessons?${params}`);
         classes.value = await response.json();
     } catch (error) {
         console.error('Fetch error:', error);
