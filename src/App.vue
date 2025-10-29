@@ -16,7 +16,13 @@
             :cart="cart"
         />
         <ClassBox v-if="!showCart" :classes="filteredClasses" @add-to-cart="addToCart" @remove-from-cart="removeFromCart" />
-        <ShoppingCart v-else :cart="cart" @add-to-cart="addToCart" @remove-from-cart="removeFromCart" />
+        <ShoppingCart
+            v-else
+            :cart="cart"
+            @add-to-cart="addToCart"
+            @remove-from-cart="removeFromCart"
+            @clear-cart="clearCart"
+        />
         <footer>&copy; Filip Domanski <span id="year">{{ year }}</span></footer>
     </main>
 </template>
@@ -55,6 +61,11 @@ const addToCart = async (classInfo) => {
 
 const removeFromCart = async (classInfo) => {
     cart.value = cart.value.filter(item => item.id !== classInfo.id);
+    await saveCartToBackend();
+};
+
+const clearCart = async () => {
+    cart.value = [];
     await saveCartToBackend();
 };
 
