@@ -34,6 +34,9 @@ const selectedSubjects = ref([]);
 const selectedLocations = ref([]);
 const selectedAvailability = ref(false);
 const sortOrder = ref('price-asc');
+const searchTerm = ref('');
+const classes = ref([]);
+const userId = getOrCreateUserId();
 
 // Shopping Cart logic
 const showCart = ref(false);
@@ -51,8 +54,24 @@ const addToCart = (classInfo) => {
 const removeFromCart = (classInfo) => {
     cart.value = cart.value.filter(item => item.id !== classInfo.id);
 };
-const searchTerm = ref('');
-const classes = ref([]);
+
+// Save randomgenerated userID in local storage for persistent cart logic
+function getOrCreateUserId() {
+  let userId = localStorage.getItem('userId');
+  if (!userId) {
+    userId = crypto.randomUUID();
+    localStorage.setItem('userId', userId);
+  }
+  return userId;
+}
+
+// fetch saved cart if exists 
+const fetchCart = async () => {
+  const userId = localStorage.getItem('userId');
+  const response = await fetch(`http://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/cart?userId=${userId}`);
+  cart.value = await response.json();
+};
+onMounted(fetchCart);
 
 // Function to fetch classes from backend
 const fetchClasses = async () => {
