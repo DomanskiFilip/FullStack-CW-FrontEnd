@@ -26,6 +26,9 @@ The frontend is live at:
 This app connects to the backend API hosted on Render.com:  
 **https://fullstack-cw-backend-d2z9.onrender.com/lessons**
 
+backend repository: 
+**https://github.com/DomanskiFilip/FullStack-CW-BackEnd**
+
 ## Development
 
 ```bash
