@@ -57,7 +57,7 @@ async function addToCart(classInfo) {
     if (classInfo.availablePlaces > 0 && !cart.value.some(item => item._id === classInfo._id)) {
         cart.value.push({ ...classInfo, quantity: 1 });
         // Decrement availablePlaces in backend
-        await fetch(`https://fs-cw-express-env-lb.eba-gifrnf2i.eu-west-2.elasticbeanstalk.com/lesson/${classInfo._id}`, {
+        await fetch(`https://fs-cw-express-env-lb.eba-gifrnf2i.eu-west-2.elasticbeanstalk.com/lessons/${classInfo._id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ availablePlaces: classInfo.availablePlaces - 1 })
