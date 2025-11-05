@@ -57,7 +57,7 @@ async function addToCart(classInfo) {
     if (classInfo.availablePlaces > 0 && !cart.value.some(item => item._id === classInfo._id)) {
         cart.value.push({ ...classInfo, quantity: 1 });
         // Decrement availablePlaces in backend
-        await fetch(`http://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/lesson/${classInfo._id}`, {
+        await fetch(`https://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/lesson/${classInfo._id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ availablePlaces: classInfo.availablePlaces - 1 })
@@ -90,7 +90,7 @@ function getOrCreateUserId() {
 // fetch saved cart if exists 
 const fetchCart = async () => {
   const userId = localStorage.getItem('userId');
-  const response = await fetch(`http://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/cart?userId=${userId}`);
+  const response = await fetch(`https://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/cart?userId=${userId}`);
   cart.value = await response.json();
 };
 onMounted(fetchCart);
@@ -98,7 +98,7 @@ onMounted(fetchCart);
 // Save cart to backend
 async function saveCartToBackend() {
     const userId = localStorage.getItem('userId');
-    await fetch('http://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/cart', {
+    await fetch('https://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/cart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, items: cart.value })
@@ -116,7 +116,7 @@ const fetchClasses = async () => {
 
     try {
         // const response = await fetch(`http://localhost:3000/lessons?${params}`);
-        const response = await fetch(`http://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/lessons?${params}`);
+        const response = await fetch(`https://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/lessons?${params}`);
         classes.value = await response.json();
     } catch (error) {
         console.error('Fetch error:', error);
