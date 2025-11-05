@@ -133,7 +133,12 @@ watch(sortOrder, fetchClasses);
 // Initial fetch
 onMounted(fetchClasses);
 
-const filteredClasses = computed(() => classes.value);
+// show filtered classes from AWS backend excluding those already in cart
+const filteredClasses = computed(() =>
+    classes.value.filter(
+        cls => !cart.value.some(item => item._id === cls._id)
+    )
+);
 
 const toggleSubject = (subject) => {
     // If the subject is already selected, remove it from the list
