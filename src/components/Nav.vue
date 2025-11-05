@@ -1,6 +1,6 @@
 <template>
     <section>
-        <a href="/"><h1>ClassShop</h1></a>
+        <a href="https://domanskifilip.github.io/FullStack-CW-FrontEnd/"><h1>ClassShop</h1></a>
         <div class="center">
             <input type="text" id="search" placeholder="Search..." :value="searchTerm" @input="$emit('update:searchTerm', $event.target.value)" />
             <div class="tags-wrapper">
