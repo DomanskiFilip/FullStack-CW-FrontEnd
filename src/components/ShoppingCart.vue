@@ -1,5 +1,8 @@
 <template>
-    <section  v-if="showCheckoutForm" class="checkout-form-overlay">
+    <section v-if="successMessage" class="success-message">
+        <h2>{{ successMessage }}</h2>
+    </section>
+    <section v-else-if="showCheckoutForm" class="checkout-form-overlay">
         <form @submit.prevent="submitCheckout">
             <h3>Checkout</h3>
             <label>
@@ -68,6 +71,8 @@ const props = defineProps({
 const emit = defineEmits(['add-to-cart', 'remove-from-cart', 'checkout', 'clear-cart']);
 
 const showCheckoutForm = ref(false);
+const successMessage = ref('');
+
 
 const checkoutInfo = ref({
     name: '',
@@ -137,6 +142,12 @@ async function submitCheckout() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, items: [] })
     });
+
+    successMessage.value = 'Order successfully placed!';
+    showCheckoutForm.value = false;
+    setTimeout(() => {
+        successMessage.value = '';
+    }, 2000);
 }
 </script>
 
@@ -214,6 +225,20 @@ async function submitCheckout() {
     gap: 1rem;
     margin-top: 1rem;
     width: 100%;
+}
+
+.success-message {
+    position: fixed;
+    top: 40vh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: var(--accent);
+    padding: 2rem 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    z-index: 200;
+    text-align: center;
 }
 
 #checkout-section {
