@@ -90,7 +90,7 @@ function getOrCreateUserId() {
 // fetch saved cart if exists 
 const fetchCart = async () => {
   const userId = localStorage.getItem('userId');
-  const response = await fetch(`https://fullstack-cw-backend-d2z9.onrender.com//cart?userId=${userId}`);
+  const response = await fetch(`https://fullstack-cw-backend-d2z9.onrender.com/cart?userId=${userId}`);
   cart.value = await response.json();
 };
 onMounted(fetchCart);
