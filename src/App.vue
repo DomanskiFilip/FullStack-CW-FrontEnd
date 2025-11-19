@@ -64,6 +64,8 @@ async function addToCart(classInfo) {
         });
         // update local state for instant UI feedback
         classInfo.availablePlaces -= 1;
+        // Save cart to backend after adding
+        await saveCartToBackend();
     }
 }
 
