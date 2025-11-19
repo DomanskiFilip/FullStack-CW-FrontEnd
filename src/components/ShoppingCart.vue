@@ -99,7 +99,7 @@ async function submitCheckout() {
 
     // Save order to backend
     const userId = localStorage.getItem('userId');
-    const orderRes = await fetch('http://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/order', {
+    const orderRes = await fetch('https://fullstack-cw-backend-d2z9.onrender.com/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -111,7 +111,7 @@ async function submitCheckout() {
 
     // Update lessons (decrement availablePlaces)
     for (const item of props.cart) {
-        await fetch(`http://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/lesson/${item._id}`, {
+        await fetch(`https://fullstack-cw-backend-d2z9.onrender.com/lesson/${item._id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -125,7 +125,7 @@ async function submitCheckout() {
     showCheckoutForm.value = false;
 
     // Clear cart in backend
-    await fetch('http://fs-cw-express-env-1.eba-xnwxzufd.eu-west-2.elasticbeanstalk.com/cart', {
+    await fetch('https://fullstack-cw-backend-d2z9.onrender.com/cart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, items: [] })
