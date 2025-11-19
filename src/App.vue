@@ -57,7 +57,7 @@ async function addToCart(classInfo) {
     if (classInfo.availablePlaces > 0 && !cart.value.some(item => item._id === classInfo._id)) {
         cart.value.push({ ...classInfo, quantity: 1 });
         // Decrement availablePlaces in backend
-        await fetch(`https://fullstack-cw-backend-d2z9.onrender.com/lessons/${classInfo._id}`, {
+        await fetch(`https://fullstack-cw-backend-d2z9.onrender.com/lesson/${classInfo._id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ availablePlaces: classInfo.availablePlaces - 1 })
