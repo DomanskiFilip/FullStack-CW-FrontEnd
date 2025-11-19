@@ -97,8 +97,15 @@ async function submitCheckout() {
         return;
     }
 
-    // Save order to backend
+    // Save cart to backend before placing order
     const userId = localStorage.getItem('userId');
+    await fetch('https://fullstack-cw-backend-d2z9.onrender.com/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, items: props.cart })
+    });
+
+    // Now place the order
     const orderRes = await fetch('https://fullstack-cw-backend-d2z9.onrender.com/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
