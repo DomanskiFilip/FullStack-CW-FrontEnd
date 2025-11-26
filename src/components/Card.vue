@@ -50,7 +50,7 @@ const isInCart = (classInfo) => {
     gap: 0.75rem;
     color: var(--text);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-    height: 250px;
+    height: 300px;
 }
 
 header h2 {
