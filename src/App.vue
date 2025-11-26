@@ -56,7 +56,7 @@ const cart = ref([]);
 async function addToCart(classInfo) {
     // Only add if space > 0 and not already in cart
     if (classInfo.availablePlaces > 0 && !cart.value.some(item => item._id === classInfo._id)) {
-         cart.value.push({ ...classInfo, quantity: 1 });
+         cart.value.push({ ...classInfo});
         // Decrement availablePlaces in backend
         await fetch(`https://fullstack-cw-backend-d2z9.onrender.com/lesson/${classInfo._id}`, {
             method: 'PUT',
