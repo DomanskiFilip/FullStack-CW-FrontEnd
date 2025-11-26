@@ -5,6 +5,7 @@
         </header>
         <p class="location">{{ classInfo.location }}</p>
         <p class="availability">{{ classInfo.availablePlaces }} places available</p>
+        <img :src="classInfo.image || fallbackImage" :alt="`${classInfo.subject} class image`" />
         <section>
             <p class="price">£{{ classInfo.price }}</p>
             <button v-if="classInfo.availablePlaces > 0 && !isInCart(classInfo)" @click="addToCart(classInfo)">Add to Cart</button>
@@ -15,6 +16,8 @@
 </template>
 
 <script setup>
+const fallbackImage = 'https://placehold.co/600x400?text=Class';
+
 const props = defineProps({
     classInfo: {
         type: Object,
@@ -100,5 +103,13 @@ button:disabled {
     background-color: var(--muted);
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    background-color: var(--surface);
 }
 </style>
