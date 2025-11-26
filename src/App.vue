@@ -15,6 +15,7 @@
             :toggleCart="toggleCart"
             :cart="cart"
         />
+        <p v-if="!showCart && classes.length === 0" class="loading-message">Loading classes… please wait up to a minute for the backend to start up.</p>
         <ClassBox v-if="!showCart" :classes="filteredClasses" @add-to-cart="addToCart" @remove-from-cart="removeFromCart" />
         <ShoppingCart
             v-else
@@ -55,7 +56,7 @@ const cart = ref([]);
 async function addToCart(classInfo) {
     // Only add if space > 0 and not already in cart
     if (classInfo.availablePlaces > 0 && !cart.value.some(item => item._id === classInfo._id)) {
-        cart.value.push({ ...classInfo, quantity: 1 });
+         cart.value.push({ ...classInfo, quantity: 1 });
         // Decrement availablePlaces in backend
         await fetch(`https://fullstack-cw-backend-d2z9.onrender.com/lesson/${classInfo._id}`, {
             method: 'PUT',
@@ -207,5 +208,12 @@ footer {
     bottom: 0;
     left: 0;
     gap: 0.25rem;
+}
+
+.loading-message {
+    margin: 2rem auto;
+    color: var(--accent);
+    font-size: 1.1rem;
+    text-align: center;
 }
 </style>

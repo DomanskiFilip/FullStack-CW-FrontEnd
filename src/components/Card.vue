@@ -28,7 +28,7 @@ const props = defineProps({
 const emit = defineEmits(['add-to-cart', 'remove-from-cart']);
 
 const addToCart = (classInfo) => {
-    emit('add-to-cart', classInfo);
+     emit('add-to-cart', { ...classInfo, image: classInfo.image });
 };
 const removeFromCart = (classInfo) => {
     emit('remove-from-cart', classInfo);
