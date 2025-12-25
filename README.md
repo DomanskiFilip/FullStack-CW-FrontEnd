@@ -3,6 +3,10 @@
 This is the frontend for the FullStack Coursework project.  
 It is a Vue 3 SPA built with Vite and deployed on GitHub Pages.
 
+![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D)
+![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=github-pages&logoColor=white)
+
+
 ## Features
 
 - Browse and search lessons
